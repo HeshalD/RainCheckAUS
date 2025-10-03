@@ -65,7 +65,8 @@ module.exports = {
           gilroyHeavy: ['Gilroy Heavy', 'sans-serif'],
           gilroyBold: ['Gilroy Bold', 'sans-serif'],
           gilroyRegular: ['Gilroy Regular', 'sans-serif'],
-          gilroyLight: ['Gilroy  Light', 'sans-serif']
+          gilroyMedium: ['Gilroy Medium', 'sans-serif'],
+          gilroyLight: ['Gilroy Light', 'sans-serif']
         },
         keyframes: {
           fadeIn: {

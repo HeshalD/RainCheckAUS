@@ -1,17 +1,42 @@
-const express = require('express');
-const mongoose = require('mongoose');
-require('dotenv').config();
+import express from "express";
+import axios from "axios";
+import cors from "cors";
+import { configDotenv } from "dotenv";
+
+configDotenv();
 
 const app = express();
+const PORT = process.env.PORT
 
-app.use(express.json()); 
+// Allow frontend (React) requests
+app.use(cors());
+app.use(express.json());
 
-//Database Connection
-mongoose.connect(process.env.MONGODB_URI)
+// Base URL of your FastAPI service
+const FASTAPI_URL = process.env.FASTAPI_URL;
 
-.then(() =>console.log("Connected to MongoDB"))
-.then(() => {
-    app.listen(process.env.PORT || 5000);
-})
+// Route: user enters city -> backend calls FastAPI -> return result
+app.get("/raincheck/:city", async (req, res) => {
+  const city = req.params.city;
 
-.catch((err) => console.log((err)))
+  try {
+    const response = await axios.get(`${FASTAPI_URL}/predict_from_location`, {
+      params: { city },
+    });
+
+    return res.json(response.data); 
+    // Example response: { "prediction": 1, "probability": 0.72 }
+
+  } catch (error) {
+    console.error(error.message);
+    return res.status(500).json({
+      error: "Failed to fetch prediction",
+      details: error.response?.data || error.message,
+    });
+  }
+});
+
+app.listen(PORT, () => {
+  console.log(`Backend running on http://localhost:${PORT}`);
+  console.log(` running on http://localhost:${PORT}`);
+});
