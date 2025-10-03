@@ -173,7 +173,7 @@ const TomorrowRain = () => {
                 >
                   Will it rain tommorow?
                 </h2>
-                <p className="text-6xl font-bold text-green-500 font-gilroyHeavy">
+                <p className="text-6xl font-bold text-green-500 font-gilroyBold">
                   {rainPrediction || "Loading..."}
                 </p>
                 {rainProbability && (

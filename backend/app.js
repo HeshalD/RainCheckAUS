@@ -6,14 +6,14 @@ import { configDotenv } from "dotenv";
 configDotenv();
 
 const app = express();
-const PORT = process.env.PORT
+const PORT = process.env.PORT || 5000;
 
 // Allow frontend (React) requests
 app.use(cors());
 app.use(express.json());
 
 // Base URL of your FastAPI service
-const FASTAPI_URL = process.env.FASTAPI_URL;
+const FASTAPI_URL = process.env.FASTAPI_URL || "http://fastapi:8000";
 
 // Route: user enters city -> backend calls FastAPI -> return result
 app.get("/raincheck/:city", async (req, res) => {
@@ -28,7 +28,7 @@ app.get("/raincheck/:city", async (req, res) => {
     // Example response: { "prediction": 1, "probability": 0.72 }
 
   } catch (error) {
-    console.error(error.message);
+    console.error("Prediction fetch error:", error.message);
     return res.status(500).json({
       error: "Failed to fetch prediction",
       details: error.response?.data || error.message,
@@ -37,6 +37,6 @@ app.get("/raincheck/:city", async (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Backend running on http://localhost:${PORT}`);
-  console.log(` running on http://localhost:${PORT}`);
+  console.log(`Backend running on port ${PORT}`);
+  console.log(`Connecting to FastAPI at ${FASTAPI_URL}`);
 });
