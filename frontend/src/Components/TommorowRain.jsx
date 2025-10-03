@@ -134,7 +134,7 @@ const TomorrowRain = () => {
     <div className="min-h-screen bg-white p-8">
       <div className="max-w-7xl mx-auto">
         <h1
-          className="text-5xl font-bold text-center mb-12"
+          className="text-5xl font-bold text-center mb-12 font-gilroyBold"
           style={{ color: "#0f3f72" }}
         >
           Check Today's Rain Prediction
@@ -149,7 +149,7 @@ const TomorrowRain = () => {
               <select
                 value={selectedLocation}
                 onChange={(e) => setSelectedLocation(e.target.value)}
-                className="font-medium text-lg bg-transparent outline-none"
+                className="font-medium text-lg bg-transparent outline-none font-gilroyMedium"
                 style={{ color: "#1E73BE" }}
               >
                 {Object.keys(cityCoords).map((city) => (
@@ -159,7 +159,7 @@ const TomorrowRain = () => {
                 ))}
               </select>
               <FaChevronDown style={{ color: "#1E73BE" }} />
-              <span className="ml-4" style={{ color: "#1E73BE" }}>
+              <span className="ml-4 font-gilroyMedium" style={{ color: "#1E73BE" }}>
                 {selectedDate}
               </span>
             </div>
@@ -168,16 +168,16 @@ const TomorrowRain = () => {
             <div className="flex items-center justify-between mb-8">
               <div>
                 <h2
-                  className="text-3xl font-semibold mb-4"
+                  className="text-3xl font-semibold mb-4 font-gilroyBold"
                   style={{ color: "#0f3f72" }}
                 >
-                  Will it rain today?
+                  Will it rain tommorow?
                 </h2>
-                <p className="text-6xl font-bold text-green-500">
+                <p className="text-6xl font-bold text-green-500 font-gilroyHeavy">
                   {rainPrediction || "Loading..."}
                 </p>
                 {rainProbability && (
-                  <p className="mt-2 text-gray-600">
+                  <p className="mt-2 text-gray-600 font-gilroyMedium">
                     Probability: {rainProbability}%
                   </p>
                 )}
@@ -193,7 +193,7 @@ const TomorrowRain = () => {
             {/* Weather Details (OpenWeather) */}
             <div>
               <h3
-                className="text-2xl font-semibold mb-6"
+                className="text-2xl font-semibold mb-6 font-gilroyBold"
                 style={{ color: "#0f3f72" }}
               >
                 More About Today's Weather
@@ -204,9 +204,9 @@ const TomorrowRain = () => {
                     key={index}
                     className="bg-blue-50 rounded-2xl p-4 text-center"
                   >
-                    <p className="text-sm text-gray-600 mb-2">{detail.label}</p>
+                    <p className="text-sm text-gray-600 mb-2 font-gilroyMedium">{detail.label}</p>
                     <div className="flex justify-center mb-2">{detail.icon}</div>
-                    <p className="text-lg font-semibold text-gray-800">
+                    <p className="text-lg font-semibold text-gray-800 font-gilroyBold">
                       {detail.value}
                     </p>
                   </div>
@@ -218,7 +218,7 @@ const TomorrowRain = () => {
           {/* Sidebar Recent Forecasts */}
           <div className="bg-gradient-to-br from-blue-50 to-indigo-40 rounded-3xl shadow-lg p-8">
             <h3
-              className="text-2xl font-semibold mb-6"
+              className="text-2xl font-semibold mb-6 font-gilroyBold"
               style={{ color: "#0f3f72" }}
             >
               Recent forecasts
@@ -229,14 +229,14 @@ const TomorrowRain = () => {
                   key={index}
                   className="flex items-center justify-between p-4 bg-blue-50 rounded-xl hover:bg-blue-100 transition-colors"
                 >
-                  <span className="font-medium text-gray-700 w-16">
+                  <span className="font-medium text-gray-700 w-16 font-gilroyMedium">
                     {forecast.day}
                   </span>
                   <div className="flex-shrink-0">{forecast.icon}</div>
-                  <span className="font-medium text-blue-600 w-20 text-center">
+                  <span className="font-medium text-blue-600 w-20 text-center font-gilroyMedium">
                     {forecast.condition}
                   </span>
-                  <span className="font-semibold text-gray-800 w-16 text-right">
+                  <span className="font-semibold text-gray-800 w-16 text-right font-gilroyBold">
                     {forecast.temp}
                   </span>
                 </div>
