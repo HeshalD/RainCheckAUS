@@ -1,5 +1,6 @@
 import React from 'react';
 import dataAnalytics from '../Images/data_analytics.jpg'
+import { Link } from 'react-router-dom';
 
 const AboutRainCheckAUS = () => {
   return (
@@ -14,9 +15,9 @@ const AboutRainCheckAUS = () => {
             <p className="text-lg font-gilroyRegular text-gray-600 leading-relaxed mb-8">
               RainCheckAUS is an AI-powered platform built to predict if it will rain today in Australia. Our mission is to keep you prepared, wherever you are.
             </p>
-            <button className="bg-[#3b82c4] text-white font-gilroyMedium px-8 py-3 rounded-full hover:bg-[#2563a4] transition-colors shadow-lg">
+            <Link to="/about-us" className="bg-[#3b82c4] text-white font-gilroyMedium px-8 py-3 rounded-full hover:bg-[#2563a4] transition-colors shadow-lg">
               Learn More About Us
-            </button>
+            </Link>
           </div>
 
           {/* Right Content - Image Placeholder */}

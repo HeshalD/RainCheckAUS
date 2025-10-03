@@ -1,16 +1,19 @@
 import express from "express";
 import axios from "axios";
 import cors from "cors";
+import { configDotenv } from "dotenv";
+
+configDotenv();
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT
 
 // Allow frontend (React) requests
 app.use(cors());
 app.use(express.json());
 
 // Base URL of your FastAPI service
-const FASTAPI_URL = "http://localhost:8000";
+const FASTAPI_URL = process.env.FASTAPI_URL;
 
 // Route: user enters city -> backend calls FastAPI -> return result
 app.get("/raincheck/:city", async (req, res) => {
@@ -35,4 +38,5 @@ app.get("/raincheck/:city", async (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`Backend running on http://localhost:${PORT}`);
+  console.log(` running on http://localhost:${PORT}`);
 });

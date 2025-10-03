@@ -22,7 +22,7 @@ const TomorrowRain = () => {
   const [rainPrediction, setRainPrediction] = useState(null); // from backend
   const [rainProbability, setRainProbability] = useState(null);
 
-  const OPENWEATHER_KEY = "";
+  const OPENWEATHER_KEY = "633a9d9b91294145a80cb090a154b62b";
 
   const cityCoords = {
     "Sydney, Australia": { lat: -33.8688, lon: 151.2093 },

@@ -1,5 +1,6 @@
 import React from 'react';
 import RainTommorowImage from '../Images/RainTommorowImage.png'
+import { Link } from 'react-router-dom';
 
 const HeroSection = () => {
   return (
@@ -16,12 +17,12 @@ const HeroSection = () => {
           
           {/* CTA Buttons */}
           <div className="flex items-center justify-center gap-4">
-            <button className="bg-[#1E73BE] text-white font-gilroyMedium px-8 py-3 rounded-full hover:bg-[#2563a4] transition-colors shadow-lg">
+            <Link to="/weather" className="bg-[#1E73BE] text-white font-gilroyMedium px-8 py-3 rounded-full hover:bg-[#2563a4] transition-colors shadow-lg">
               Check Today's Forecast
-            </button>
-            <button className="bg-transparent border-2 border-[#3b82c4] text-[#3b82c4] font-gilroyMedium px-8 py-3 rounded-full hover:bg-[#3b82c4] hover:text-white transition-colors">
+              </Link>
+            <Link to='/how-it-works' className="bg-transparent border-2 border-[#3b82c4] text-[#3b82c4] font-gilroyMedium px-8 py-3 rounded-full hover:bg-[#3b82c4] hover:text-white transition-colors">
               Learn How It Works
-            </button>
+            </Link>
           </div>
         </div>
 

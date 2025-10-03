@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const CheckNowCTA = () => {
   return (
@@ -11,9 +12,9 @@ const CheckNowCTA = () => {
           <h2 className="text-white font-gilroyBold text-4xl md:text-5xl mb-8">
             Don't Get Caught in the Rain , Check Now!
           </h2>
-          <button className="bg-white text-[#3b82c4] font-gilroyBold px-10 py-3 rounded-full hover:bg-gray-100 transition-colors shadow-lg text-lg">
+          <Link to='/weather'className="bg-white text-[#3b82c4] font-gilroyBold px-10 py-3 rounded-full hover:bg-gray-100 transition-colors shadow-lg text-lg">
             Check Now
-          </button>
+          </Link>
         </div>
       </div>
     </section>

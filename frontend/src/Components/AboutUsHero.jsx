@@ -1,5 +1,6 @@
 import React from "react";
 import about_us_img from "../Images/about_us_img.jpg";
+import { Link } from "react-router-dom";
 
 export default function AboutUsSection() {
   return (
@@ -21,7 +22,7 @@ export default function AboutUsSection() {
             </p>
 
             <div className="flex flex-wrap gap-4">
-              <button
+              <Link to='/how-it-works'
                 className="px-8 py-3 rounded-full font-semibold text-white shadow-lg hover:shadow-xl transition-all duration-300"
                 style={{ backgroundColor: "#2E8BC0" }}
                 onMouseEnter={(e) =>
@@ -32,7 +33,7 @@ export default function AboutUsSection() {
                 }
               >
                 Explore more
-              </button>
+              </Link>
 
               <button
                 className="px-8 py-3 rounded-full font-semibold border-2 bg-white shadow-lg hover:shadow-xl transition-all duration-300"
