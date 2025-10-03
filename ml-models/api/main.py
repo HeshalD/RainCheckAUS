@@ -12,13 +12,18 @@ import requests
 
 app = FastAPI(title="RainCheckAUS ML API", version="1.0")
 
+# Health check endpoint
+@app.get("/health")
+async def health_check():
+    return {"status": "healthy", "timestamp": "2024-01-01T00:00:00Z"}
+
 
 # Load environment variables from ml-models/.env if present
 load_dotenv(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".env")))
 
 # Load model at startup
-MODEL_PATH = os.path.join(os.path.dirname(__file__), "..", "models", "xgb_model.pkl")
-MODEL_PATH = os.path.abspath(MODEL_PATH)
+MODEL_PATH = os.getenv("MODEL_PATH")  # will use /app/models/xgb_model.pkl inside Docker
+
 
 
 def load_model():
