@@ -1,0 +1,30 @@
+# dependencies
+node_modules/
+venv/
+.venv/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# logs, coverage
+*.log
+coverage/
+.coverage
+pytestcache/
+
+# env and secrets
+.env
+.env.*
+!.env.example
+
+# builds and artifacts
+build/
+dist/
+*.egg-info/
+
+# OS
+.DS_Store
+Thumbs.db
