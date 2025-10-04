@@ -74,13 +74,9 @@ const TomorrowRain = () => {
   // Fetch backend prediction
   const fetchRainPrediction = async (city) => {
     try {
-<<<<<<< HEAD
       const res = await axios.get(
         `${process.env.REACT_APP_BACKEND_URL}/raincheck/${city}`
       );
-=======
-      const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/raincheck/${city}`);
->>>>>>> 3df4b7f9167f377bdfe0ad0d9ab76d21741cdce3
       setRainPrediction(res.data.prediction === 1 ? "YES" : "NO");
       setRainProbability((res.data.probability * 100).toFixed(2));
     } catch (err) {
