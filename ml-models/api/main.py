@@ -37,7 +37,7 @@ scaler: Optional[StandardScaler] = None
 
 
 # Determine feature order from preprocessed CSV header to ensure alignment
-CSV_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "data", "weather_preprocessed.csv"))
+CSV_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "data", "weather_preprocessed.csv"))
 FEATURE_COLUMNS: List[str] = []
 WINDDIR_MAPPINGS = {"WindDir-9AM": {}, "WindDir-3PM": {}}
 

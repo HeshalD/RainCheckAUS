@@ -1,0 +1,47 @@
+services:
+  # Backend Service (Node.js/Express)
+  - type: web
+    name: raincheck-backend
+    env: node
+    buildCommand: cd backend && npm ci --only=production
+    startCommand: cd backend && node app.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 5000
+      - key: FASTAPI_URL
+        value: https://raincheck-ml-api.onrender.com
+    healthCheckPath: /health
+    dockerfilePath: ./backend/Dockerfile
+
+  # ML Model Service (FastAPI/Python)
+  - type: web
+    name: raincheck-ml-api
+    env: python
+    buildCommand: cd ml-models && pip install -r api/requirements.txt
+    startCommand: cd ml-models/api && uvicorn main:app --host 0.0.0.0 --port 8000
+    envVars:
+      - key: MODEL_PATH
+        value: /opt/render/project/src/ml-models/models/xgb_model.pkl
+      - key: OPENWEATHER_API_KEY
+        fromDatabase:
+          name: openweather-api-key
+          property: connectionString
+    healthCheckPath: /health
+    dockerfilePath: ./ml-models/api/Dockerfile
+
+  # Frontend Service (React)
+  - type: web
+    name: raincheck-frontend
+    env: static
+    buildCommand: cd frontend && npm ci && npm run build
+    staticPublishPath: ./frontend/build
+    envVars:
+      - key: REACT_APP_BACKEND_URL
+        value: https://raincheck-backend.onrender.com
+    dockerfilePath: ./frontend/Dockerfile
+
+databases:
+  - name: openweather-api-key
+    plan: free
