@@ -197,7 +197,6 @@ const TomorrowRain = () => {
                   </option>
                 ))}
               </select>
-              <FaChevronDown style={{ color: "#1E73BE" }} />
               <span className="ml-4 font-gilroyMedium" style={{ color: "#1E73BE" }}>
                 {selectedDate}
               </span>
