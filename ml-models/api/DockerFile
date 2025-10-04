@@ -8,10 +8,11 @@ FROM python:3.11-slim
 # 2. Set working directory
 WORKDIR /app
 
-# 3. Install system dependencies (if any)
+# 3. Install system dependencies
 RUN apt-get update && apt-get install -y \
     build-essential \
-    && rm -rf /var/lib/apt/lists/*
+    curl \
+    curl \
 
 # 4. Copy Python requirements first for caching
 COPY requirements.txt .
@@ -20,14 +21,42 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir --upgrade pip \
     && pip install --no-cache-dir -r requirements.txt
 
-# 6. Copy FastAPI code
-COPY . .
+# 6. Create models and data directories
+RUN mkdir -p /app/models /app/data
 
-# 7. Expose port FastAPI will run on
-EXPOSE 8000
+# 7. Copy model files (from parent directory context)
+COPY models/xgb_model.pkl /app/models/
+COPY models/logistic_weather_pipeline.pkl /app/models/
 
-# 8. Set environment variables (optional)
-ENV MODEL_PATH=/models/xgb_model.pkl
+# 8. Copy data files (from parent directory context)
+COPY data/weather_preprocessed.csv /app/data/
+COPY data/weather.csv /app/data/
 
-# 9. Command to run FastAPI with Uvicorn
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+# 9. Copy FastAPI code
+# 6. Create models directory
+RUN mkdir -p /app/models
+# 10. Expose port FastAPI will run on
+# 7. Copy model files
+COPY ../models/xgb_model.pkl /app/models/
+# 11. Set environment variables
+ENV MODEL_PATH=/app/models/xgb_model.pkl
+
+# 12. Health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+  CMD curl -f http://localhost:8000/health || exit 1
+# 8. Copy data files
+# 13. Command to run FastAPI with Uvicornpp/data/
+COPY ../data/weather.csv /app/data/
+
+# 9. Copy FastAPI code# 7. Expose port FastAPI will run on# 8. Set environment variables (optional)
+ENV MODEL_PATH=/models/xgb_model.pkl# 9. Command to run FastAPI with Uvicorn# 10. Expose port FastAPI will run on# 11. Set environment variables
+ENV MODEL_PATH=/app/models/xgb_model.pkl
+# 10. Expose port FastAPI will run on
+# 12. Health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+# 11. Set environment variables
+ENV MODEL_PATH=/app/models/xgb_model.pkl
+
+# 12. Health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+  CMD curl -f http://localhost:8000/health || exit 1# 9. Command to run FastAPI with Uvicorn# 13. Command to run FastAPI with Uvicorn# 9. Command to run FastAPI with Uvicorn# 13. Command to run FastAPI with Uvicorn

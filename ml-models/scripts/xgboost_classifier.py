@@ -1,11 +1,9 @@
 import pandas as pd
-import numpy as np
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler
-from sklearn.svm import SVC
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
-import time
-from tqdm import tqdm
+from xgboost import XGBClassifier
+import joblib
+import numpy as np
 
 # Load preprocessed data
 df = pd.read_csv("../data/weather_preprocessed.csv")
@@ -27,37 +25,38 @@ x_train, x_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, random_state=42, stratify=y
 )
 
-# Scale features
-scaler = StandardScaler()
-x_train_scaled = scaler.fit_transform(x_train)
-x_test_scaled = scaler.transform(x_test)
+# Compute class weight for imbalance
+scale_pos_weight = len(y_train[y_train == 0]) / len(y_train[y_train == 1])
+print(f"scale_pos_weight: {scale_pos_weight:.2f}")
 
-# Define SVM
-svm_model = SVC(
-    kernel="rbf",
-    C=1.0,
-    gamma="scale",
-    probability=True,
-    random_state=42
+# Define XGBoost model with class balancing
+model = XGBClassifier(
+    n_estimators=200,
+    learning_rate=0.05,
+    max_depth=6,
+    subsample=0.8,
+    colsample_bytree=0.8,
+    random_state=42,
+    use_label_encoder=False,
+    eval_metric="logloss",
+    scale_pos_weight=scale_pos_weight,   # 💡 important for class imbalance
+    verbosity=1
 )
 
-# Simulate progress bar during training
-print("Training SVM (this might take some time)...")
-start_time = time.time()
-for _ in tqdm(range(1), desc="Fitting model"):
-    svm_model.fit(x_train_scaled, y_train)
-end_time = time.time()
+# Train
+model.fit(x_train, y_train, eval_set=[(x_test, y_test)], verbose=True)
 
-print(f"\n✅ Training completed in {end_time - start_time:.2f} seconds")
+# Predict probabilities instead of hard labels
+y_proba = model.predict_proba(x_test)[:, 1]
 
-# Predict probabilities
-y_proba = svm_model.predict_proba(x_test_scaled)[:, 1]
-
-# Apply threshold
-threshold = 0.5
+# Apply threshold tuning
+threshold = 0.4   # Lower than 0.5 to catch more rainy days
 y_pred = (y_proba >= threshold).astype(int)
 
 # Evaluation
 print("Accuracy:", accuracy_score(y_test, y_pred))
 print("\nClassification Report:\n", classification_report(y_test, y_pred))
 print("\nConfusion Matrix:\n", confusion_matrix(y_test, y_pred))
+
+# Optionally save model
+joblib.dump(model, "../models/xgb_model.pkl")
