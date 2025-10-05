@@ -60,7 +60,7 @@ def handle_skewness(df: pd.DataFrame) -> pd.DataFrame:
 
 def scaling_normalization(df: pd.DataFrame) -> pd.DataFrame:
     """
-    Scale numerical features using Standard Scaler.
+    Scale numerical features using MinMaxScaler.
     """
     from sklearn.preprocessing import MinMaxScaler
 
