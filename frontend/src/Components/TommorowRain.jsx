@@ -214,11 +214,11 @@ const TomorrowRain = () => {
                 <p className="text-6xl font-bold text-green-500 font-gilroyBold">
                   {rainPrediction || "Loading..."}
                 </p>
-                {rainProbability && (
+                {/*{rainProbability && (
                   <p className="mt-2 text-gray-600 font-gilroyMedium">
                     Probability: {rainProbability}%
                   </p>
-                )}
+                )}*/}
               </div>
               <div className="relative">
                 <FaCloudShowersHeavy
