@@ -67,10 +67,3 @@ uvicorn main:app --reload --host 0.0.0.0 --port 8000
 Configuration
 Set environment variables in .env files for API keys and service URLs.
 ML API requires OPENWEATHER_API_KEY and MODEL_PATH.
-
-License
-MIT
-
-Would you like this README saved to your project root, or do you want to customize any section?
-
-GPT-4.1 • 1x
